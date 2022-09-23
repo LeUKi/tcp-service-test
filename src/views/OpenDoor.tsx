@@ -41,6 +41,7 @@ const Home = () => {
             }}
             loading={loading}
             variant="contained"
+            disabled={!idExsit || globalData.id == ""}
           >
             open the door!
           </LoadingButton>
