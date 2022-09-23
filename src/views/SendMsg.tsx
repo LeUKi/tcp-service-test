@@ -5,30 +5,48 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { useHistory } from "react-router-dom";
-import { globalData } from "../App";
-
-const Home = () => {
-  const [loading, setLoading] = React.useState(false);
-  const [idExsit, setIdExsit] = React.useState(true);
+const SendMsg = () => {
+  const [loading, setLoading] = React.useState(true);
+  const [idExsit, setIdExsit] = React.useState(false);
   const history = useHistory();
-  const { socket } = globalData;
-  socket.off("opendoor");
+  const socket = io("114.115.247.94:3000", { transports: ["websocket"] });
   socket.on("opendoor", (data) => {
+    console.log(data);
     setLoading(false);
+  });
+  socket.on("test", (data) => {
+    console.log(data);
+  });
+  socket.on("getID", (data) => {
+    console.log(data);
     if (data.r) {
-      setIdExsit(true);
+      setLoading(false);
     } else {
-      setIdExsit(false);
+      setIdExsit(true);
     }
   });
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("connected");
+
+      socket.emit(
+        "getID",
+        (location.search.split("?")[1] &&
+          location.search.split("?")[1].split("=")[0]) ||
+          "undefined"
+      );
+    });
+  }, []);
   return (
     <React.Fragment>
       {/* <Header title="Home" /> */}
       <main>
-        {!idExsit && (
+        {idExsit && (
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
-            {globalData.id || "undefined"}
+            {(location.search.split("?")[1] &&
+              location.search.split("?")[1].split("=")[0]) ||
+              "undefined"}
             <strong> unexpected id!</strong>
           </Alert>
         )}
@@ -37,7 +55,10 @@ const Home = () => {
             size="small"
             onClick={() => {
               setLoading(true);
-              socket.emit("opendoor", globalData.id);
+              socket.emit(
+                "opendoor",
+                location.search.split("?")[1].split("=")[0]
+              );
             }}
             loading={loading}
             loadingIndicator="Loading…"
@@ -51,4 +72,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default SendMsg;
