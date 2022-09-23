@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { globalData } from "../App";
 import { LoadingButton } from "@mui/lab";
 
-const About = () => {
+const Home = () => {
   const history = useHistory();
   const [id, setId] = React.useState(globalData.id);
   const [loading, setLoading] = React.useState(false);
@@ -54,7 +54,23 @@ const About = () => {
                 variant="contained"
                 disabled={id == "" || disabled}
               >
-                open door
+                开门
+              </LoadingButton>
+            </span>
+
+            <span className="ml-1">
+              <LoadingButton
+                onClick={() => {
+                  globalData.id = id;
+                  history.push("/sendmsg");
+                }}
+                endIcon={<SendIcon />}
+                loading={loading}
+                loadingPosition="end"
+                variant="contained"
+                disabled={id == "" || disabled}
+              >
+                实时通讯
               </LoadingButton>
             </span>
           </div>
@@ -64,4 +80,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Home;

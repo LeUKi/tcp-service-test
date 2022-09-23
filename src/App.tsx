@@ -7,6 +7,7 @@ import io from "socket.io-client";
 import Home from "./views/Home";
 import OpenDoor from "./views/OpenDoor";
 import NotFound from "./views/NotFound";
+import SendMsg from "./views/SendMsg";
 export const globalData = {
   sio: "114.115.247.94:3000",
   socket: io("114.115.247.94:3000", { transports: ["websocket"] }),
@@ -23,6 +24,9 @@ const App = () => {
         </Route>
         <Route path="/opendoor">
           <OpenDoor />
+        </Route>
+        <Route path="/sendmsg">
+          <SendMsg />
         </Route>
         <Route>
           <NotFound />

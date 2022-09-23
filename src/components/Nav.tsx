@@ -9,6 +9,7 @@ const Nav = () => {
   const links = [
     { text: "Home", to: "/" },
     { text: "OpenDoor", to: "/opendoor" },
+    { text: "SendMsg", to: "/sendmsg" },
   ];
 
   const activeClass = "text-white bg-gray-900";

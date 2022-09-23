@@ -25,7 +25,7 @@ const Home = () => {
     <React.Fragment>
       {/* <Header title="Home" /> */}
       <main>
-        {!idExsit && (
+        {(!idExsit || globalData.id == "") && (
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
             {globalData.id || "undefined"}
@@ -40,7 +40,6 @@ const Home = () => {
               socket.emit("opendoor", globalData.id);
             }}
             loading={loading}
-            loadingIndicator="Loading…"
             variant="contained"
           >
             open the door!
