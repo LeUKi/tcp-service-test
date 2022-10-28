@@ -4,9 +4,17 @@ const server = http.createServer();
 const tssport = 3001;
 const sioport = 3000;
 let io = require('socket.io')(server);
+
 server.on("request", (req, res) => {
+    res.writeHead(200, {
+    'Access-Control-Allow-Origin': '*'
+    });
     switch (req.url.split("?")[0]) {
         case "/lafish/opendoor":
+             if(req.url.indexOf("?")===-1){
+                res.end("Need props.\r\n")
+                break;
+            }
             let id = req.url.split("?")[1]
             if (!socketPool.has(id)) {
                 res.end("Error. Id is unexpected. Made by lafish with love.\r\n")
@@ -29,7 +37,11 @@ server.on("request", (req, res) => {
                 console.log(`http Server: ${id2}'s pwd is setting`);
             }
             break;
-        case "/lafish/  ":
+        case "/lafish/sendmsg":
+            if(req.url.indexOf("?")===-1){
+                res.end("Need props.\r\n")
+                break;
+            }
             let cmd1 = req.url.split("?")[1]
             let [id3, msg] = cmd1.split("&")
             if (!socketPool.has(id3)) {

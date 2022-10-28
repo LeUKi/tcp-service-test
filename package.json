@@ -4,7 +4,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview --port 80"
+    "serve": "vite preview",
+    "sstart":"forever start -o out.log -e err.log ./a.js",
+    "sstop":"forever stop a.js",
+    "srestart":"yarn sstop && yarn sstart"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
