@@ -7,9 +7,9 @@ const Nav = () => {
   const location = useLocation();
 
   const links = [
-    { text: "Home", to: "/" },
-    { text: "OpenDoor", to: "/opendoor" },
-    { text: "SendMsg", to: "/sendmsg" },
+    { text: "设置受控设备", to: "/" },
+    { text: "设备控制", to: "/ctrl" },
+    { text: "在线调试", to: "/test" },
   ];
 
   const activeClass = "text-white bg-gray-900";

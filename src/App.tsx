@@ -5,9 +5,9 @@ import Nav from "./components/Nav";
 import io from "socket.io-client";
 
 import Home from "./views/Home";
-import OpenDoor from "./views/OpenDoor";
+import OpenDoor from "./views/Ctrl";
 import NotFound from "./views/NotFound";
-import SendMsg from "./views/SendMsg";
+import SendMsg from "./views/Test";
 export const globalData = {
   sio: "114.115.247.94:3000",
   socket: io("114.115.247.94:3000", { transports: ["websocket"] }),
@@ -22,10 +22,10 @@ const App = () => {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/opendoor">
+        <Route path="/ctrl">
           <OpenDoor />
         </Route>
-        <Route path="/sendmsg">
+        <Route path="/test">
           <SendMsg />
         </Route>
         <Route>

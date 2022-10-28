@@ -5,9 +5,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "sstart":"forever start -o out.log -e err.log ./a.js",
-    "sstop":"forever stop a.js",
-    "srestart":"yarn sstop && yarn sstart"
+    "sstart": "forever start -o out.log -e err.log ./a.js",
+    "sstop": "forever stop a.js",
+    "srestart": "yarn sstop && yarn sstart"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -15,7 +15,9 @@
     "@mui/icons-material": "^5.10.6",
     "@mui/lab": "^5.0.0-alpha.100",
     "@mui/material": "^5.10.6",
+    "@types/react-color": "^3.0.6",
     "react": "^18.0.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.0.0",
     "react-router-dom": "^5.2.1",
     "socket.io": "^4.5.2",

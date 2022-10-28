@@ -37,13 +37,14 @@ const Home = () => {
   }, []);
   return (
     <React.Fragment>
-      <Header title="Test." />
+      <Header title="TCP Socket Service." />
       <main>
         <div className="max-w-3xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
             <TextField
+              sx={{ mr: 1 }}
               id="outlined-basic"
-              label="Id"
+              label="设备ID"
               variant="outlined"
               size="small"
               defaultValue={id}
@@ -54,11 +55,11 @@ const Home = () => {
               }}
             />
 
-            <span className="ml-1">
+            <span className="mr-1">
               <LoadingButton
                 onClick={() => {
                   globalData.id = id;
-                  history.push("/opendoor");
+                  history.push("/ctrl");
                 }}
                 endIcon={<SendIcon />}
                 loading={loading}
@@ -66,15 +67,15 @@ const Home = () => {
                 variant="contained"
                 disabled={id == "" || disabled}
               >
-                开门
+                开始控制
               </LoadingButton>
             </span>
 
-            <span className="ml-1">
+            <span className="mr-1">
               <LoadingButton
                 onClick={() => {
                   globalData.id = id;
-                  history.push("/sendmsg");
+                  history.push("/test");
                 }}
                 endIcon={<SendIcon />}
                 loading={loading}
@@ -82,7 +83,7 @@ const Home = () => {
                 variant="contained"
                 disabled={id == "" || disabled}
               >
-                实时通讯
+                开始调试
               </LoadingButton>
             </span>
           </div>
@@ -93,7 +94,7 @@ const Home = () => {
             <AccordionDetails>
               <Typography>
                 {
-                  "一个简单的TCP Socket中间件服务。基于node实现socket连接池并通过http与websocket协议向上层暴露接口。你可以在这个网页通过相关指令调试你的板子。"
+                  "这是一个简单的Web应用，用于控制或调试基于TCP Socket中间件服务的板子。后台基于node实现socket连接池并通过http与websocket协议向上层暴露接口，你可以使用这些接口开发自己的应用。"
                 }
               </Typography>
             </AccordionDetails>
@@ -115,7 +116,7 @@ const Home = () => {
             <AccordionDetails>
               <Typography>
                 {
-                  "为了在连接池中找到你的设备，需要为你的设备绑定一个id，请请在透传下发送设备的id，尽量复杂但简短，，无需\\r\\n，绑定成功将返回ok，二次绑定将覆盖之前的id。"
+                  "为了在连接池中找到你的设备，需要为你的设备绑定一个id，请在透传下发送设备的id，尽量复杂但简短，无需\\r\\n，绑定成功将返回ok，二次绑定将覆盖之前的id。"
                 }
               </Typography>
               <Typography align="center">{"regID=<id>"}</Typography>
@@ -130,16 +131,16 @@ const Home = () => {
           </Accordion>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>与网页交互</Typography>
+              <Typography>在网页中调试</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
                 {
-                  "在这个页面上方输入你的设备id，进入实时通讯，你可以在这里发送指令给你的设备，也可以接收设备的消息。"
+                  "在这个页面上方输入你的设备id，点击开始实时调试，你可以在页面中向设备发送指令，也可以接收设备的消息。"
                 }
               </Typography>
               <Typography>
-                {"发送消息需要在透传下发送下面的指令，发送成功将返回ok。"}
+                {"板子发送消息需要在透传下发送下面的指令，发送成功将返回ok。"}
               </Typography>
               <Typography align="center">{"msg=<msg>"}</Typography>
               <Typography align="center">{"例子：msg=helloworld!"}</Typography>
@@ -150,12 +151,12 @@ const Home = () => {
           </Accordion>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>Websocket API</Typography>
+              <Typography>WebSocket API</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
                 {
-                  "如果您恰巧掌握websocket使用方法，可以直接使用ws协议与设备交互。请直接使用下方的websocket地址，发送指令即可。"
+                  "WS支持双向通信，如果您恰巧掌握websocket使用方法，可以直接使用ws协议与设备交互。请直接使用下方的websocket地址，发送指令即可。"
                 }
               </Typography>
               <Typography align="center">
@@ -164,7 +165,7 @@ const Home = () => {
               <Typography>
                 {`发送 emit("msg",{id:"<id>",msg:"<msg>"})`}
               </Typography>
-              <Typography>{`接受 on("msg<id>")`}</Typography>
+              <Typography>{`接收 on("msg<id>")`}</Typography>
             </AccordionDetails>
           </Accordion>
           <Accordion>
@@ -174,17 +175,20 @@ const Home = () => {
             <AccordionDetails>
               <Typography>
                 {
-                  "如果您恰巧掌握HTTP协议，可以直接使用GET方法与设备交互。请直接使用下方的地址，发送请求即可。"
+                  "HTTP仅支持单向通信，如果您恰巧掌握HTTP协议，可以直接使用GET方法与设备交互。请直接使用下方的地址，发送请求即可。"
                 }
               </Typography>
               <Typography align="center">
                 {"http://114.115.247.94:3000/lafish/sendmsg?<id>&<msg>"}
               </Typography>
+              <Typography align="center">
+                {"例子：http://114.115.247.94:3000/lafish/sendmsg?device1&helloworld"}
+              </Typography>
             </AccordionDetails>
           </Accordion>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>TO DO</Typography>
+              <Typography>关于</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
